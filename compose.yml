@@ -1,0 +1,26 @@
+services:
+  persistent-alpine-curl:
+    image: homanw104/persistent-alpine-curl:latest
+    network_mode: host
+
+    # Designate a user for your existing services that you want to proxy.
+    # It must be the same as the PROXIED_UID set in the proxy container
+    # and it will be used to add specific iptables rules.
+    user: "1099"
+
+  docker-host-proxy:
+    image: homanw104/docker-host-proxy:latest
+    network_mode: host
+    environment:
+      - PROXIED_UID=1099
+      - PROXY_SERVER=127.0.0.1
+      - PROXY_PORT=7897
+      # Other optional variables available
+      # - LOG_DEBUG=off
+      # - LOG_INFO=on
+      # - LOCAL_IP=127.0.0.1
+      # - LOCAL_PORT=17777
+      # - PROXY_TYPE=socks5
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW

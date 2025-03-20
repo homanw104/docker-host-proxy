@@ -2,20 +2,25 @@
 
 A simple container designed to transparent-proxy other containers in **host network**.
 
-It can theoretically proxy any process in the host system as long as the uid matches. One of the use cases is to proxy the home-assistant container, so that the HACS plugin can use proxy while keeping the benefit of using the host network in Home Assistant.
+It's useful if you want to:
+
+* Proxy containers who don't follow environment variables like `http_proxy`
+* Transparent-proxy any process that runs in the host network
+
+One of the use cases is to proxy the home-assistant container, so that the HACS plugin can use proxy while keeping the benefit of using the host network in Home Assistant.
 
 ## Features
 
-* A relatively small size of 17.5MB
+* A relatively small size of ~18MB
 * Easy configuration via environment variables
 * Decoupled from your main services, redirect rules are deleted when the container stops
 
 ## Usage
 
-1. Run your existing service with a specific user `-u <name|uid>[:<group|gid>]`.
+1. Run your existing service with a specific user (`-u <name|uid>[:<group|gid>]`).
 
     ```bash
-    docker run --rm -d -u 1099 --network=host your-service:latest
+    docker run --rm -d -u 1099 --network=host <your-service>
     ```
 
 2. Run `docker-host-proxy` with your proxy settings.
@@ -32,12 +37,12 @@ It can theoretically proxy any process in the host system as long as the uid mat
 
 ## Docker Compose
 
-Alternatively, you can simply add the proxy service to your docker compose config.
+Alternatively, you can simply add the proxy service to your docker compose file.
 
 ```yml
 services:
   your-service:
-    image: your-service:latest
+    image: <your-service>
     network_mode: host
 
     # Designate a user for your existing services that you want to proxy.
@@ -46,7 +51,7 @@ services:
     user: "1099"
 
   docker-host-proxy:
-    image: homanw104/docker-host-proxy
+    image: homanw104/docker-host-proxy:latest
     network_mode: host
     environment:
       - PROXIED_UID=1099
