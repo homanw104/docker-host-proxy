@@ -4,6 +4,7 @@ FROM alpine:latest
 
 RUN addgroup -S redsocks && adduser -S redsocks -G redsocks
 RUN apk update && apk add --no-cache \
+    iproute2-ss \
     redsocks \
     iptables \
     && rm -rf /var/cache/apk/*
