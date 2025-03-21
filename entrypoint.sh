@@ -95,4 +95,4 @@ check_port_avail
 setup_redsocks
 setup_iptables
 
-/usr/bin/redsocks -c /etc/redsocks/redsocks.conf & wait $!
+/usr/bin/redsocks -c /etc/redsocks/redsocks.conf & wait # Wait for signals
