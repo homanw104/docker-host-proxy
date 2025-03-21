@@ -13,6 +13,15 @@ check_variables() {
     if [ -z "$PROXIED_UID" ]; then echo "Error: You must define the PROXIED_UID."; exit 1; fi
     if [ -z "$PROXY_SERVER" ]; then echo "Error: You must define the PROXY_SERVER."; exit 1; fi
     if [ -z "$PROXY_PORT" ]; then echo "Error: You must define the PROXY_PORT."; exit 1; fi
+
+    echo "- PROXIED_UID=$PROXIED_UID"
+    echo "- PROXY_SERVER=$PROXY_SERVER"
+    echo "- PROXY_PORT=$PROXY_PORT"
+    echo "- LOG_DEBUG=$LOG_DEBUG"
+    echo "- LOG_INFO=$LOG_INFO"
+    echo "- LOCAL_IP=$LOCAL_IP"
+    echo "- LOCAL_PORT=$LOCAL_PORT"
+    echo "- PROXY_TYPE=$PROXY_TYPE"
 }
 
 check_port_avail() {
